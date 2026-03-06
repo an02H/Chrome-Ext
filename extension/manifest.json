@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "LLM Capture Pro",
+  "version": "2.0.0",
+  "description": "Capture conversations LLM → traitement Claude API → export Word + Google Drive",
+  "permissions": ["activeTab", "scripting", "storage", "identity"],
+  "host_permissions": [
+    "http://localhost:3747/*",
+    "https://www.googleapis.com/*",
+    "https://oauth2.googleapis.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": { "48": "icons/icon48.png" }
+  },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content.js"],
+    "css": ["overlay.css"],
+    "run_at": "document_idle"
+  }],
+  "background": { "service_worker": "background.js" },
+  "web_accessible_resources": [{ "resources": ["overlay.css"], "matches": ["<all_urls>"] }]
+}

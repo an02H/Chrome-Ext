@@ -1,0 +1,54 @@
+/* ── LLM Capture Pro — Overlay Styles ── */
+#llm-cap-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647;
+  background: #0d0d14; color: #e0e0e0;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px; height: 40px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+  border-bottom: 2px solid #1e1e2e; transition: border-color 0.4s; user-select: none;
+}
+#llm-cap-bar.capturing { border-bottom-color: #00ff9d; }
+#llm-cap-bar.processing { border-bottom-color: #7b61ff; }
+#llm-cap-bar .cap-left { display:flex; align-items:center; gap:10px; }
+.cap-dot { width:8px; height:8px; border-radius:50%; background:#444; flex-shrink:0; transition: background 0.3s; }
+#llm-cap-bar.capturing .cap-dot { background:#00ff9d; animation:blink 1s infinite; }
+#llm-cap-bar.processing .cap-dot { background:#7b61ff; animation:pulse-dot 1s linear infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+@keyframes pulse-dot { 0%{transform:scale(1)} 50%{transform:scale(1.6)} 100%{transform:scale(1)} }
+.cap-label { font-weight:700; font-size:11px; letter-spacing:.08em; color:#fff; }
+.cap-status { color:#606080; font-size:11px; }
+#llm-cap-bar.capturing .cap-status { color:#00ff9d; }
+#llm-cap-bar.processing .cap-status { color:#7b61ff; }
+.cap-count { background:rgba(255,255,255,.07); border-radius:10px; padding:2px 8px; font-size:10px; color:#80c8ff; }
+#llm-cap-bar .cap-right { display:flex; align-items:center; gap:6px; }
+#llm-cap-bar button {
+  border:none; border-radius:5px; padding:4px 12px; font-size:11px; font-weight:700;
+  cursor:pointer; transition:all .15s; font-family:inherit; letter-spacing:.04em;
+}
+.btn-start { background:#00ff9d; color:#000; }
+.btn-start:hover { background:#00cc7a; transform:translateY(-1px); }
+.btn-stop { background:#ff4566; color:#fff; }
+.btn-stop:hover { background:#cc2244; transform:translateY(-1px); }
+.btn-process { background:#7b61ff; color:#fff; }
+.btn-process:hover { background:#5c43dd; transform:translateY(-1px); }
+.btn-secondary { background:rgba(255,255,255,.08); color:#aaa; }
+.btn-secondary:hover { background:rgba(255,255,255,.15); }
+#llm-cap-progress {
+  position:fixed; top:40px; left:0; right:0; z-index:2147483646;
+  height:3px; background:#1e1e2e; display:none;
+}
+#llm-cap-progress-fill {
+  height:100%; width:0%; background:linear-gradient(90deg,#7b61ff,#00ff9d);
+  transition:width .4s; border-radius:0 2px 2px 0;
+}
+#llm-cap-toast {
+  position:fixed; bottom:20px; right:20px; z-index:2147483646;
+  background:#0d0d14; color:#e0e0e0; border-radius:8px;
+  padding:10px 16px; font-family:'JetBrains Mono',monospace; font-size:12px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.5); border-left:3px solid #00ff9d;
+  max-width:300px; opacity:0; transform:translateY(8px); transition:all .25s; pointer-events:none;
+}
+#llm-cap-toast.show { opacity:1; transform:translateY(0); }
+#llm-cap-toast.error { border-left-color:#ff4566; }
+#llm-cap-toast.info { border-left-color:#7b61ff; }

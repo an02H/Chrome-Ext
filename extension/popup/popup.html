@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>LLM Capture Pro</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    width:280px; background:#0d0d14; color:#e0e0e0;
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+  }
+  .header {
+    background:#0a0a11; padding:14px 16px 10px;
+    border-bottom:1px solid #1e1e2e;
+  }
+  .header h1 { font-size:13px; font-weight:700; color:#fff; letter-spacing:.1em; }
+  .header p { color:#606080; font-size:10px; margin-top:2px; }
+  .status-row {
+    display:flex; align-items:center; gap:8px; padding:10px 16px;
+    border-bottom:1px solid #1a1a24; background:#0f0f1a;
+  }
+  .dot { width:7px; height:7px; border-radius:50%; background:#333; }
+  .dot.on { background:#00ff9d; animation:blink 1s infinite; }
+  .dot.proc { background:#7b61ff; }
+  @keyframes blink { 0%,100%{opacity:1}50%{opacity:.2} }
+  .status-text { font-size:11px; color:#606080; flex:1; }
+  .count-badge {
+    background:rgba(128,200,255,.12); border-radius:8px;
+    padding:2px 8px; font-size:10px; color:#80c8ff;
+  }
+  .section { padding:10px 16px; border-bottom:1px solid #1a1a24; }
+  .section-title { font-size:9px; color:#404060; letter-spacing:.12em; margin-bottom:8px; text-transform:uppercase; }
+  button {
+    display:block; width:100%; border:none; border-radius:6px;
+    padding:8px 12px; font-size:11px; font-weight:700; font-family:inherit;
+    cursor:pointer; transition:all .15s; letter-spacing:.05em; margin-bottom:5px;
+    text-align:left;
+  }
+  button:last-child { margin-bottom:0; }
+  .btn-start { background:#00ff9d; color:#000; }
+  .btn-start:hover { background:#00cc7a; }
+  .btn-stop { background:#ff4566; color:#fff; }
+  .btn-stop:hover { background:#cc2244; }
+  .btn-export { background:#7b61ff; color:#fff; }
+  .btn-export:hover { background:#5c43dd; }
+  .btn-muted { background:rgba(255,255,255,.06); color:#808090; }
+  .btn-muted:hover { background:rgba(255,255,255,.12); }
+  .btn-gdrive { background:#1a1a2e; color:#80c8ff; border:1px solid #2a2a44; }
+  .btn-gdrive:hover { background:#1e2030; }
+  button .ico { margin-right:6px; }
+  .log-area {
+    background:#080810; border:1px solid #1a1a28; border-radius:6px;
+    padding:8px; font-size:10px; color:#505070; min-height:50px;
+    max-height:80px; overflow-y:auto; font-family:inherit; line-height:1.6;
+    white-space:pre-wrap;
+  }
+  .footer {
+    padding:8px 16px; font-size:9px; color:#303050;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  a { color:#4060ff; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>⬡ LLM CAPTURE PRO</h1>
+  <p>Capture → Claude API → DOCX → Google Drive</p>
+</div>
+
+<div class="status-row">
+  <div class="dot" id="dot"></div>
+  <span class="status-text" id="status-text">Injection en cours…</span>
+  <span class="count-badge" id="count-badge" style="display:none">0 msg</span>
+</div>
+
+<div class="section">
+  <div class="section-title">Capture</div>
+  <button class="btn-start" id="btn-start"><span class="ico">▶</span>DÉMARRER la capture</button>
+  <button class="btn-stop" id="btn-stop" style="display:none"><span class="ico">■</span>ARRÊTER la capture</button>
+</div>
+
+<div class="section">
+  <div class="section-title">Traitement & Export</div>
+  <button class="btn-export" id="btn-export"><span class="ico">⚡</span>Traiter via Claude + Exporter DOCX</button>
+  <button class="btn-gdrive" id="btn-gdrive"><span class="ico">☁</span>Ouvrir Google Drive</button>
+  <button class="btn-muted" id="btn-reset"><span class="ico">✕</span>Réinitialiser la capture</button>
+</div>
+
+<div class="section">
+  <div class="section-title">Log serveur</div>
+  <div class="log-area" id="log">En attente…</div>
+</div>
+
+<div class="footer">
+  <span>Serveur: <a href="http://localhost:3747" target="_blank">localhost:3747</a></span>
+  <span id="server-status">⬤ offline</span>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
